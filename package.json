@@ -1,0 +1,11 @@
+{
+  "name": "phasera-site",
+  "private": true,
+  "scripts": {
+    "seo-check": "node scripts/seo-check.mjs",
+    "vercel-build": "node scripts/seo-check.mjs --write"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}

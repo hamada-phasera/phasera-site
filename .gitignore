@@ -1,0 +1,20 @@
+# Vercel
+.vercel
+
+# Dependencies
+node_modules/
+
+# Stray editor backup of the homepage — never version or deploy (duplicate-content risk)
+/index 2.html
+
+# Separate sub-projects / heavy non-runtime assets — kept out of the phasera.jp site repo
+# (root-anchored so api/works/ edge functions are NOT excluded)
+/works/
+/anatomical-garden-handoff/
+/_archive/
+
+# Agent / editor local config (machine-specific permission allowlists, stray dups)
+.claude/
+
+# OS / editor cruft
+.DS_Store

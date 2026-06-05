@@ -25,3 +25,7 @@ assets/3d/diagnose/
 # Misc
 .DS_Store
 DEPLOYMENT.md
+
+# Stray editor backup of the homepage — duplicate of index.html, must not be served
+# (would otherwise be reachable at /index%202.html and dilute canonical)
+/index 2.html

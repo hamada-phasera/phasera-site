@@ -63,6 +63,13 @@ else pass.push('canonical')
 if (!/<meta\s+name=["']robots["']/i.test(html)) warn('index.html', 'explicit <meta name="robots"> missing (defaults to index,follow)')
 else pass.push('robots meta')
 
+// 5b. deploy-safety: production HTML must NEVER ship noindex (regression guard against the
+//     "bad deploy deindexed us" incident). Scans every robots meta tag for a noindex token.
+const robotsTags = [...html.matchAll(/<meta\b[^>]*\bname=["']robots["'][^>]*>/gi)].map((m) => m[0])
+const noindexTags = robotsTags.filter((tag) => /\bnoindex\b/i.test(tag))
+if (noindexTags.length > 0) fail('index.html', `production robots meta must not contain noindex: ${noindexTags.join(' ; ')}`)
+else pass.push('no noindex in production HTML')
+
 // 6. h1 exactly 1
 const h1Count = (html.match(/<h1[\s>]/gi) || []).length
 if (h1Count !== 1) fail('index.html', `expected exactly 1 <h1>, found ${h1Count}`)

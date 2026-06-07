@@ -443,6 +443,10 @@
   .work-card .work-metric{display:flex;justify-content:space-between;align-items:baseline;padding-top:14px;margin-top:auto;border-top:1px dashed var(--line);font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--ink-soft);text-transform:uppercase}
   .work-card .work-metric b{font-family:var(--display);font-style:normal;font-weight:700;font-size:22px;letter-spacing:-.02em;color:var(--ink)}
   .work-card .work-metric b sup{font-size:.46em;color:var(--blue);font-weight:600;margin-left:2px}
+  .work-card .work-links{display:flex;flex-wrap:wrap;gap:10px;padding-top:10px;margin-top:8px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+  .work-card .work-links a{color:var(--blue);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 200ms var(--ease)}
+  .work-card .work-links a:hover{border-bottom-color:var(--blue)}
+  .work-card .work-links .badge{font-family:var(--mono);font-size:9px;letter-spacing:.18em;background:rgba(74,111,168,.10);color:var(--blue);padding:2px 6px;border-radius:3px;margin-left:5px;text-transform:uppercase}
 
   /* ============== NEWS ============== */
   .news-list{list-style:none;padding:0;margin:48px 0 0;border-top:1px solid var(--ink)}
@@ -1936,6 +1940,9 @@
           <p>新規問い合わせの一次返信を AI が下書き、担当者は確認するだけ。土日深夜の取りこぼし対応に。</p>
           <ul class="work-stack"><li>OpenAI</li><li>Gmail API</li><li>Notion</li></ul>
           <div class="work-metric"><span>削減見込み</span><b>−3<sup>h/週</sup></b></div>
+          <div class="work-links">
+            <a href="https://phasera-blog.vercel.app/auto-reply/" target="_blank" rel="noopener">▸ Case study</a>
+          </div>
         </article>
 
         <article class="work-card">
@@ -1945,6 +1952,9 @@
           <p>案件と求職者プロファイルを読み込み、刺さる DM 文面を自動生成。属人化していた文面作成を半自動化。</p>
           <ul class="work-stack"><li>OpenAI</li><li>Slack</li><li>スプレッドシート</li></ul>
           <div class="work-metric"><span>削減見込み</span><b>−4<sup>h/週</sup></b></div>
+          <div class="work-links">
+            <a href="https://phasera-blog.vercel.app/scout-dm/" target="_blank" rel="noopener">▸ Case study</a>
+          </div>
         </article>
 
         <article class="work-card">
@@ -1954,6 +1964,9 @@
           <p>各 SaaS の指標を集約、AI が前月比とコメントを生成。人レビュー 15-20 分で月次経営会議に出せる。</p>
           <ul class="work-stack"><li>OpenAI</li><li>Make</li><li>Slack</li></ul>
           <div class="work-metric"><span>会議準備</span><b>20<sup>min</sup></b></div>
+          <div class="work-links">
+            <a href="https://phasera-blog.vercel.app/kpi-report/" target="_blank" rel="noopener">▸ Case study</a>
+          </div>
         </article>
 
         <article class="work-card">
@@ -1963,6 +1976,9 @@
           <p>顧問先情報を元に、申告書類・委任状の下書きを自動生成。最終確認のみ士業が担う運用に。</p>
           <ul class="work-stack"><li>OpenAI</li><li>Python</li><li>PDF</li></ul>
           <div class="work-metric"><span>下書き時間</span><b>−60<sup>%</sup></b></div>
+          <div class="work-links">
+            <a href="https://phasera-blog.vercel.app/doc-draft/" target="_blank" rel="noopener">▸ Case study</a>
+          </div>
         </article>
 
         <article class="work-card">
@@ -1972,6 +1988,9 @@
           <p>案件要件と求職者スキルを意味的に比較、適合度スコアと推薦理由を提示。一次振り分けを高速化。</p>
           <ul class="work-stack"><li>OpenAI</li><li>Embeddings</li><li>Notion</li></ul>
           <div class="work-metric"><span>振り分け</span><b>5×<sup>速</sup></b></div>
+          <div class="work-links">
+            <a href="https://phasera-blog.vercel.app/match/" target="_blank" rel="noopener">▸ Case study</a>
+          </div>
         </article>
 
         <article class="work-card">

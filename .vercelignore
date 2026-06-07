@@ -29,3 +29,8 @@ DEPLOYMENT.md
 # Stray editor backup of the homepage — duplicate of index.html, must not be served
 # (would otherwise be reachable at /index%202.html and dilute canonical)
 /index 2.html
+
+# Separate sub-project (Onice prototype) + deps — must never be served under
+# phasera.jp/works/* (foreign/duplicate content under the canonical domain)
+/works/
+node_modules/

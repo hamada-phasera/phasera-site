@@ -24,8 +24,8 @@
     },
     {
       "source": "/(.*)",
-      "missing": [
-        { "type": "host", "value": "^(www\\.)?phasera\\.jp$" }
+      "has": [
+        { "type": "host", "value": ".*\\.vercel\\.app" }
       ],
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }

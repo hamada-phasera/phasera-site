@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>スカウト DM の一通目を 3 パターンに分解する、伴走型エージェント | Phasera Cases</title>
+<meta name="description" content="人材派遣・紹介の現場で 1 件 15-25 分かかるスカウト DM の下書きを、AI エージェントで「短い・標準・詳しい」の 3 パターンに分解。実装の核となる System Prompt と実出力を、Phasera が解説します。" />
+<link rel="canonical" href="https://phasera.jp/cases/scout-dm/" />
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large" />
+<link rel="alternate" hreflang="ja-JP" href="https://phasera.jp/cases/scout-dm/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Phasera" />
+<meta property="og:title" content="スカウト DM の一通目を 3 パターンに分解する、伴走型エージェント | Phasera Cases" />
+<meta property="og:description" content="人材派遣・紹介の現場で 1 件 15-25 分かかるスカウト DM の下書きを、AI エージェントで「短い・標準・詳しい」の 3 パターンに分解。実装の核となる System Prompt と実出力を、Phasera が解説します。" />
+<meta property="og:url" content="https://phasera.jp/cases/scout-dm/" />
+<meta property="og:image" content="https://phasera.jp/assets/works-scout-dm.jpg" />
+<meta property="og:locale" content="ja_JP" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="スカウト DM の一通目を 3 パターンに分解する、伴走型エージェント | Phasera Cases" />
+<meta name="twitter:description" content="人材派遣・紹介の現場で 1 件 15-25 分かかるスカウト DM の下書きを、AI エージェントで「短い・標準・詳しい」の 3 パターンに分解。実装の核となる System Prompt と実出力を、Phasera が解説します。" />
+<meta name="twitter:image" content="https://phasera.jp/assets/works-scout-dm.jpg" />
+
+<!-- JSON-LD: Article + BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://phasera.jp/cases/scout-dm/#article",
+      "headline": "スカウト DM の一通目を 3 パターンに分解する、伴走型エージェント",
+      "description": "人材派遣・紹介の現場で 1 件 15-25 分かかるスカウト DM の下書きを、AI エージェントで「短い・標準・詳しい」の 3 パターンに分解。実装の核となる System Prompt と実出力を、Phasera が解説します。",
+      "inLanguage": "ja-JP",
+      "datePublished": "2026-05-13",
+      "dateModified": "2026-05-13",
+      "author": {
+        "@type": "Person",
+        "@id": "https://phasera.jp/#founder",
+        "name": "濱田大夢"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://phasera.jp/#org",
+        "name": "Phasera",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://phasera.jp/assets/favicon-180.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://phasera.jp/cases/scout-dm/"
+      },
+      "image": "https://phasera.jp/assets/works-scout-dm.jpg",
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "人材派遣・紹介業の代表 / リクルーター"
+      },
+      "isPartOf": {
+        "@id": "https://phasera.jp/cases/#collection"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Phasera",
+          "item": "https://phasera.jp/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ケーススタディ",
+          "item": "https://phasera.jp/cases/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "スカウト DM の一通目を 3 パターンに分解する、伴走型エージェント",
+          "item": "https://phasera.jp/cases/scout-dm/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=2" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png?v=2" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png?v=2" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/cases.css" />
+</head>
+<body>
+<nav class="nav">
+  <div class="inner">
+    <a class="brand" href="/"><span class="dot"></span>Phasera <span class="brand-sub">Cases</span></a>
+    <span class="crumbs">
+      <a href="/cases/">Cases</a><span class="sep">/</span><span>scout-dm</span>
+    </span>
+    <span class="spacer"></span>
+    <a class="home" href="/">phasera.jp トップ →</a>
+  </div>
+</nav>
+
+<main class="article">
+  <header class="article-head">
+    <div class="eyebrow">PHASERA · WORKS CASE / scout-dm</div>
+    <h1>スカウト DM の一通目を 3 パターンに分解する、伴走型エージェント</h1>
+    <div class="meta">
+      <span class="audience">人材派遣・紹介業の代表 / リクルーター</span>
+      <span class="sep">·</span>
+      <span class="chars">2921字</span>
+      <span class="sep">·</span>
+      <time class="status" datetime="2026-05-13">2026.05.13</time>
+    </div>
+  </header>
+
+  <article class="article-body">
+    <p>人材派遣・人材紹介の現場で、新しい案件が出るたびに同じ求職者プロファイルを 30 分かけてスカウトメールに翻訳する作業がある。文字を変えるだけのコピー&amp;ペーストが、月に数十件積み重なれば見過ごせない時間になる。Phasera では、その一通目を <em>AI エージェント</em> に下書きさせ、リクルーターの方が最終調整だけ担う構成にしました。本稿では、求職者スカウト DM 生成エージェントの設計と動作を共有します。</p>
+<h2>課題: スカウト DM は、なぜ手間がかかるのか</h2>
+<p>求人案件と求職者プロファイルを照らし合わせて DM を書く作業は、人材紹介の業務時間の 2〜3 割を占めると言われます。1 件あたり 15〜25 分。これに「短い版・標準版・詳しい版」を分けて作るとなれば、さらに 2 倍に膨らみます。問題は時間だけではありません。</p>
+<p>第一に、属人化が進みやすい。「刺さる」文章を書けるベテランと書けない若手で返信率が 2 倍以上開くケースもあり、新人の立ち上がりに時間がかかります。第二に、押し売りの文体に倒れがちです。ノルマに追われると「あなたにぴったり」のような根拠なしの断定が増え、求職者の心象を悪くする。第三に、案件側の条件が変わるたびに DM の在庫を作り直す必要がある。</p>
+<p>これらは「テンプレ化」では解けません。求職者ごとに固有の重なり点があるからこそ、人手で読まれる DM になるからです。Phasera が組んだのは、テンプレでもフルマニュアルでもない、その間にある自動下書きという形でした。</p>
+<h2>設計: AI に任せる範囲、人間に残す範囲</h2>
+<p>私たちは「文体の翻訳」と「重なり点の抽出」だけを AI に任せ、最終判断はリクルーターの方に残す設計にしました。具体的には、入力された案件と求職者プロファイルから共通点を 3 つ程度ピックアップし、それを「短い版（60-80字）」「標準版（150-200字）」「詳しい版（300-400字）」の 3 パターンに展開する。</p>
+<p>3 パターンに分けたのは、媒体や関係性で送り方を変えるためです。LinkedIn では短い版、メールでは標準版、フォロー DM では詳しい版、といった具合に切り替えられます。</p>
+<p>AI に任せていないのは、相手の選定そのもの、希望年収や勤務地などの確約条件、フォロー後の調整。これらはリクルーター本人の判断が必須で、システム化すべきではないと考えています。「AI が下書き、人が責任を持つ」という Phasera 共通の原則を、ここでも徹底しました。求職者の状況を尊重するため、断定的なキャッチコピーは Prompt 側で禁止しています。</p>
+<h2>実装の核: System Prompt</h2>
+<p>本エージェントの心臓部は、強い厳守ルールを持つ system prompt です。フォーマット固定と禁止語句の明示で出力品質を担保します。</p>
+<pre><code class="language-text">あなたは人材派遣・人材紹介のエージェントです。案件と求職者プロファイルから
+「重なる点」を見つけ、刺さるスカウトDMを3パターン生成します。
+
+# 厳守ルール
+1. 必ず日本語で、求職者の状況を尊重した語り口で書く（押し売り厳禁）
+2. 出力フォーマットは以下に厳密に従う:
+   【短い版】件名 + 本文 60-80字
+   【標準版】件名 + 本文 150-200字
+   【詳しい版】件名 + 本文 300-400字
+3. 案件と求職者プロファイルから具体的な「重なる点」を本文中で言及する
+4. 「あなたにぴったり」のような根拠なしの断定は避ける
+5. 必ず最後に「※ これは AI が生成したスカウト文面です」を入れる
+</code></pre>
+<p>ポイントは、文字数を 3 段階に細かく分けたこと、押し売り表現を例示で明示禁止にしたこと、そして AI 生成の旨を本文末尾に必ず残させたことです。文字数を強制しないと出力が長文に偏り、媒体の制約に合わなくなることが多いからです。</p>
+<h2>動作確認: 入力と出力</h2>
+<p>実際に試した入力と、生成された出力を見てみます。入力は案件側と求職者側の最小限の情報のみです。</p>
+<pre><code class="language-json">{
+  &quot;role&quot;: &quot;経理スタッフ&quot;,
+  &quot;roleDetail&quot;: &quot;税理士法人 経理スタッフ。年収380-450万、簿記2級必須、freee経験歓迎、東京渋谷、週2リモート可。&quot;,
+  &quot;candidate&quot;: &quot;30歳 女性、経理7年、簿記2級、freee経験あり、子育て中でフルリモート希望、希望年収400万。&quot;
+}
+</code></pre>
+<p>生成された短い版は次の通りです。「渋谷の税理士法人で経理スタッフの募集があります。簿記2級と freee の経験があるあなたに、週2のリモート勤務も可能です。」標準版では「7年の経理経験と簿記2級、freee のスキルが活かせるポジション」「子育て中のあなたにとって柔軟な働き方ができるかもしれません」と、相手側の希望条件にも触れる形に膨らんでいます。</p>
+<p>うまく出力された点は、3 案すべてが「経理 7 年、簿記 2 級、freee」という重なり点を正しく取り出し、希望条件である「フルリモート」と求人側の「週 2 リモート」のギャップにも素直に触れていること。一方、人が直すべき点もあります。リクルーターの個人名と、相手の趣味や直近の活動への言及。これらは Prompt の外側で担当者の方が加えると、返信率がぐっと上がります。</p>
+<h2>アーキテクチャ: なぜ Edge Function + AI Gateway なのか</h2>
+<p>本エージェントは Vercel Edge Function 上で動き、AI Gateway 経由で gpt-4o-mini 系のモデルにつながっています。この構成を選んだ理由は 3 つあります。</p>
+<p>第一に、グローバル展開しているリクルート組織でも応答が安定すること。Edge では世界中のリージョンで関数が起動するため、海外オフィスから叩いてもレイテンシが小さい。第二に、モデルの選定をコードから切り離せること。AI Gateway を介することで、新モデルが出るたびにコード変更なしで差し替えできます。Phasera では現在 gpt-4o-mini を中心に使っていますが、Anthropic の Haiku 系への切り替えも環境変数 1 つで可能です。</p>
+<p>第三に、コストの透明性。今回の Prompt 設計では、1 リクエストあたりおよそ <em>0.03 円</em> に収まる試算です。月 500 件の DM 下書きでも 15 円程度。固定費がほぼゼロで、使った分だけ課金される構造はスケールに強い設計です。</p>
+<h2>制約と限界</h2>
+<p>できないこと、人が必要なことも素直に書いておきます。第一に、相手の最近の動向（直近の転職活動、SNS の投稿など）を踏まえた個別フックは作れません。今回の設計は静的な求職者プロファイルだけを入力としており、SNS API を組み込んでいないからです。第二に、固有名詞のスペルや会社名の最新情報は保証できないため、リクルーターの方が一目読み返す時間として、1 通あたり 30 秒〜1 分は確保してください。第三に、業界ごとの文化的な慣習（敬称、口語、改行）は完全には学習しきれず、媒体に合わせた手直しが必要です。</p>
+<h2>試してみたい方へ</h2>
+<p>Phasera では、人材派遣・紹介向けのバックオフィス自動化を伴走型で支援しています。スカウト DM だけでなく、書類処理・面談調整・契約書下書きまで含めた一連の業務改善に興味がある方は、<a href="https://phasera.jp/#call">phasera.jp の診断オーディット</a> までお気軽にどうぞ。</p>
+
+  </article>
+
+  <footer class="article-foot">
+    <p>このケーススタディは <a href="/#works">phasera.jp の Works MVP</a> に基づいて書かれています。</p>
+    <p class="cta">業務の自動化を相談したい方は <a href="/#call">診断オーディット</a> までお気軽にどうぞ。</p>
+    <p><a href="/cases/">← ほかのケーススタディを見る</a></p>
+  </footer>
+</main>
+
+<footer class="site-foot">
+  <span>© Phasera · case studies</span>
+  <span class="sep">·</span>
+  <a href="/">phasera.jp</a>
+</footer>
+</body>
+</html>

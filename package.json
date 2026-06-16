@@ -2,10 +2,12 @@
   "name": "phasera-site",
   "private": true,
   "scripts": {
+    "build:cases": "node scripts/build-cases.mjs",
     "seo-check": "node scripts/seo-check.mjs",
-    "vercel-build": "node scripts/seo-check.mjs --write"
+    "vercel-build": "node scripts/build-cases.mjs && node scripts/seo-check.mjs"
   },
   "dependencies": {
-    "@vercel/analytics": "^2.0.1"
+    "@vercel/analytics": "^2.0.1",
+    "marked": "^14.1.4"
   }
 }

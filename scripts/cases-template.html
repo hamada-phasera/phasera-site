@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{title}} | Phasera Cases</title>
+<meta name="description" content="{{description}}" />
+<link rel="canonical" href="{{canonical}}" />
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large" />
+<link rel="alternate" hreflang="ja-JP" href="{{canonical}}" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Phasera" />
+<meta property="og:title" content="{{title}} | Phasera Cases" />
+<meta property="og:description" content="{{description}}" />
+<meta property="og:url" content="{{canonical}}" />
+<meta property="og:image" content="https://phasera.jp/assets/works-{{slug}}.jpg" />
+<meta property="og:locale" content="ja_JP" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{title}} | Phasera Cases" />
+<meta name="twitter:description" content="{{description}}" />
+<meta name="twitter:image" content="https://phasera.jp/assets/works-{{slug}}.jpg" />
+
+<!-- JSON-LD: Article + BreadcrumbList -->
+<script type="application/ld+json">
+{{jsonld}}
+</script>
+
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=2" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png?v=2" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png?v=2" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/cases.css" />
+</head>
+<body>
+<nav class="nav">
+  <div class="inner">
+    <a class="brand" href="/"><span class="dot"></span>Phasera <span class="brand-sub">Cases</span></a>
+    <span class="crumbs">
+      <a href="/cases/">Cases</a><span class="sep">/</span><span>{{slug}}</span>
+    </span>
+    <span class="spacer"></span>
+    <a class="home" href="/">phasera.jp トップ →</a>
+  </div>
+</nav>
+
+<main class="article">
+  <header class="article-head">
+    <div class="eyebrow">PHASERA · WORKS CASE / {{slug}}</div>
+    <h1>{{title}}</h1>
+    <div class="meta">
+      <span class="audience">{{audience}}</span>
+      <span class="sep">·</span>
+      <span class="chars">{{chars}}字</span>
+      <span class="sep">·</span>
+      <time class="status" datetime="{{date}}">{{dateDisplay}}</time>
+    </div>
+  </header>
+
+  <article class="article-body">
+    {{content}}
+  </article>
+
+  <footer class="article-foot">
+    <p>このケーススタディは <a href="/#works">phasera.jp の Works MVP</a> に基づいて書かれています。</p>
+    <p class="cta">業務の自動化を相談したい方は <a href="/#call">診断オーディット</a> までお気軽にどうぞ。</p>
+    <p><a href="/cases/">← ほかのケーススタディを見る</a></p>
+  </footer>
+</main>
+
+<footer class="site-foot">
+  <span>© Phasera · case studies</span>
+  <span class="sep">·</span>
+  <a href="/">phasera.jp</a>
+</footer>
+</body>
+</html>

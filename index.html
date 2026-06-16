@@ -185,9 +185,10 @@
       "@type": "ItemList",
       "name": "Phasera News",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "item": { "@type": "NewsArticle", "headline": "Phasera 公式サイトを公開しました。", "datePublished": "2026-05-11", "publisher": { "@id": "https://phasera.jp/#org" } } },
-        { "@type": "ListItem", "position": 2, "item": { "@type": "NewsArticle", "headline": "診断オーディットの受付を開始しました。", "datePublished": "2026-05-09", "publisher": { "@id": "https://phasera.jp/#org" } } },
-        { "@type": "ListItem", "position": 3, "item": { "@type": "NewsArticle", "headline": "3D ビジュアル制作サービスを開始しました。", "datePublished": "2026-05-05", "publisher": { "@id": "https://phasera.jp/#org" } } }
+        { "@type": "ListItem", "position": 1, "item": { "@type": "NewsArticle", "headline": "ケーススタディ（実装解説5本）を公開しました。", "datePublished": "2026-06-17", "url": "https://phasera.jp/cases/", "publisher": { "@id": "https://phasera.jp/#org" } } },
+        { "@type": "ListItem", "position": 2, "item": { "@type": "NewsArticle", "headline": "Phasera 公式サイトを公開しました。", "datePublished": "2026-05-11", "publisher": { "@id": "https://phasera.jp/#org" } } },
+        { "@type": "ListItem", "position": 3, "item": { "@type": "NewsArticle", "headline": "診断オーディットの受付を開始しました。", "datePublished": "2026-05-09", "publisher": { "@id": "https://phasera.jp/#org" } } },
+        { "@type": "ListItem", "position": 4, "item": { "@type": "NewsArticle", "headline": "3D ビジュアル制作サービスを開始しました。", "datePublished": "2026-05-05", "publisher": { "@id": "https://phasera.jp/#org" } } }
       ]
     }
   ]
@@ -444,10 +445,17 @@
   .work-card .work-metric{display:flex;justify-content:space-between;align-items:baseline;padding-top:14px;margin-top:auto;border-top:1px dashed var(--line);font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--ink-soft);text-transform:uppercase}
   .work-card .work-metric b{font-family:var(--display);font-style:normal;font-weight:700;font-size:22px;letter-spacing:-.02em;color:var(--ink)}
   .work-card .work-metric b sup{font-size:.46em;color:var(--blue);font-weight:600;margin-left:2px}
-  .work-card .work-links{display:flex;flex-wrap:wrap;gap:10px;padding-top:10px;margin-top:8px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+  .work-card .work-links{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding-top:12px;margin-top:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
   .work-card .work-links a{color:var(--blue);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 200ms var(--ease)}
   .work-card .work-links a:hover{border-bottom-color:var(--blue)}
-  .work-card .work-links .badge{font-family:var(--mono);font-size:9px;letter-spacing:.18em;background:rgba(74,111,168,.10);color:var(--blue);padding:2px 6px;border-radius:3px;margin-left:5px;text-transform:uppercase}
+  /* primary case-study link turns the whole card into one click target (stretched link) */
+  .work-card .work-links a.case-link{display:inline-flex;align-items:center;gap:7px;font-weight:600;border-bottom:0}
+  .work-card .work-links a.case-link .arr{transition:transform 200ms var(--ease)}
+  .work-card:hover .work-links a.case-link{color:var(--ink)}
+  .work-card:hover .work-links a.case-link .arr{transform:translateX(4px)}
+  .work-card .work-links a.case-link::after{content:"";position:absolute;inset:0;z-index:1}
+  .work-card:has(a.case-link){cursor:pointer}
+  .work-card .work-links .badge{font-family:var(--mono);font-size:9px;letter-spacing:.18em;background:var(--blue-soft);color:var(--blue);padding:2px 6px;border-radius:3px;margin-left:5px;text-transform:uppercase}
 
   /* ============== NEWS ============== */
   .news-list{list-style:none;padding:0;margin:48px 0 0;border-top:1px solid var(--ink)}
@@ -1943,7 +1951,7 @@
           <ul class="work-stack"><li>OpenAI</li><li>Gmail API</li><li>Notion</li></ul>
           <div class="work-metric"><span>削減見込み</span><b>−3<sup>h/週</sup></b></div>
           <div class="work-links">
-            <a href="/cases/auto-reply/">▸ Case study</a>
+            <a class="case-link" href="/cases/auto-reply/">ケーススタディを読む <span class="arr" aria-hidden="true">→</span></a>
           </div>
         </article>
 
@@ -1955,7 +1963,7 @@
           <ul class="work-stack"><li>OpenAI</li><li>Slack</li><li>スプレッドシート</li></ul>
           <div class="work-metric"><span>削減見込み</span><b>−4<sup>h/週</sup></b></div>
           <div class="work-links">
-            <a href="/cases/scout-dm/">▸ Case study</a>
+            <a class="case-link" href="/cases/scout-dm/">ケーススタディを読む <span class="arr" aria-hidden="true">→</span></a>
           </div>
         </article>
 
@@ -1967,7 +1975,7 @@
           <ul class="work-stack"><li>OpenAI</li><li>Make</li><li>Slack</li></ul>
           <div class="work-metric"><span>会議準備</span><b>20<sup>min</sup></b></div>
           <div class="work-links">
-            <a href="/cases/kpi-report/">▸ Case study</a>
+            <a class="case-link" href="/cases/kpi-report/">ケーススタディを読む <span class="arr" aria-hidden="true">→</span></a>
           </div>
         </article>
 
@@ -1979,7 +1987,7 @@
           <ul class="work-stack"><li>OpenAI</li><li>Python</li><li>PDF</li></ul>
           <div class="work-metric"><span>下書き時間</span><b>−60<sup>%</sup></b></div>
           <div class="work-links">
-            <a href="/cases/doc-draft/">▸ Case study</a>
+            <a class="case-link" href="/cases/doc-draft/">ケーススタディを読む <span class="arr" aria-hidden="true">→</span></a>
           </div>
         </article>
 
@@ -1991,7 +1999,7 @@
           <ul class="work-stack"><li>OpenAI</li><li>Embeddings</li><li>Notion</li></ul>
           <div class="work-metric"><span>振り分け</span><b>5×<sup>速</sup></b></div>
           <div class="work-links">
-            <a href="/cases/match/">▸ Case study</a>
+            <a class="case-link" href="/cases/match/">ケーススタディを読む <span class="arr" aria-hidden="true">→</span></a>
           </div>
         </article>
 
@@ -2170,6 +2178,12 @@
       </div>
 
       <ol class="news-list">
+        <li><a class="news-item" href="/cases/">
+          <span class="news-date">2026.06.17</span>
+          <span class="news-tag">Cases</span>
+          <span class="news-title">ケーススタディ（実装解説 5 本）を公開しました。</span>
+          <span class="news-arr">→</span>
+        </a></li>
         <li><a class="news-item" href="#call">
           <span class="news-date">2026.05.11</span>
           <span class="news-tag">Launch</span>

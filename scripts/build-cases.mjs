@@ -19,11 +19,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
 const SRC = join(ROOT, 'content', 'cases')
 const OUT = join(ROOT, 'cases')
+const SRC_PAGES = join(ROOT, 'content', 'pages')
 const ORIGIN = 'https://phasera.jp'
 const ORG_ID = `${ORIGIN}/#org`
+const FOUNDER_ID = `${ORIGIN}/#founder`
+const DEFAULT_OG = `${ORIGIN}/assets/og-cover.png`
 
 const TEMPLATE = readFileSync(join(__dirname, 'cases-template.html'), 'utf8')
 const INDEX_TEMPLATE = readFileSync(join(__dirname, 'cases-index-template.html'), 'utf8')
+const PAGE_TEMPLATE = readFileSync(join(__dirname, 'page-template.html'), 'utf8')
 
 marked.setOptions({ gfm: true, breaks: false })
 
@@ -195,7 +199,10 @@ function build() {
   writeFileSync(join(OUT, 'index.html'), indexHtml, 'utf8')
   console.log(`[cases] hub -> cases/index.html (${entries.length} entries)`)
 
-  // ----- sitemap.xml (homepage + hub + articles) -----
+  // ----- standalone pages (industry landings, about, author, privacy) -----
+  const pageUrls = buildPages()
+
+  // ----- sitemap.xml (homepage + hub + articles + pages) -----
   const today = new Date().toISOString().slice(0, 10)
   const urls = [
     { loc: `${ORIGIN}/`, lastmod: today, changefreq: 'weekly', priority: '1.0' },
@@ -206,6 +213,7 @@ function build() {
       changefreq: 'monthly',
       priority: '0.7',
     })),
+    ...pageUrls,
   ]
   const sitemap =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
@@ -221,6 +229,96 @@ function build() {
     `\n</urlset>\n`
   writeFileSync(join(ROOT, 'sitemap.xml'), sitemap, 'utf8')
   console.log(`[cases] sitemap.xml -> ${urls.length} urls`)
+}
+
+// Build standalone pages from content/pages/*.md (path/pagetype frontmatter drives
+// output location and JSON-LD type). Returns sitemap url entries.
+function pageJsonld({ pagetype, canonical, title, description, breadcrumb, audience, serviceType }) {
+  const crumbs = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Phasera', item: `${ORIGIN}/` },
+      { '@type': 'ListItem', position: 2, name: breadcrumb || title, item: canonical },
+    ],
+  }
+  const graph = []
+  if (pagetype === 'landing') {
+    graph.push({
+      '@type': 'WebPage', '@id': `${canonical}#webpage`,
+      name: title, description, url: canonical, inLanguage: 'ja-JP',
+      isPartOf: { '@id': ORG_ID },
+    })
+    graph.push({
+      '@type': 'Service', '@id': `${canonical}#service`,
+      serviceType: serviceType || title, name: title, description,
+      provider: { '@id': ORG_ID }, areaServed: 'JP',
+      ...(audience ? { audience: { '@type': 'BusinessAudience', audienceType: audience } } : {}),
+    })
+  } else if (pagetype === 'about') {
+    graph.push({
+      '@type': 'AboutPage', '@id': `${canonical}#webpage`,
+      name: title, description, url: canonical, inLanguage: 'ja-JP',
+      mainEntity: { '@id': ORG_ID },
+    })
+  } else if (pagetype === 'author') {
+    graph.push({
+      '@type': 'ProfilePage', '@id': `${canonical}#webpage`,
+      name: title, description, url: canonical, inLanguage: 'ja-JP',
+      mainEntity: { '@id': FOUNDER_ID },
+    })
+    graph.push({
+      '@type': 'Person', '@id': FOUNDER_ID,
+      name: '濱田大夢', alternateName: 'Hiromu Hamada', jobTitle: 'Founder',
+      worksFor: { '@id': ORG_ID }, url: canonical,
+    })
+  } else {
+    graph.push({
+      '@type': 'WebPage', '@id': `${canonical}#webpage`,
+      name: title, description, url: canonical, inLanguage: 'ja-JP',
+      isPartOf: { '@id': ORG_ID },
+    })
+  }
+  graph.push(crumbs)
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2)
+}
+
+function buildPages() {
+  if (!existsSync(SRC_PAGES)) return []
+  const files = readdirSync(SRC_PAGES).filter((f) => f.endsWith('.md')).sort()
+  const out = []
+  const priorityByType = { landing: '0.7', about: '0.5', author: '0.5', legal: '0.3' }
+  for (const file of files) {
+    if (file === 'README.md' || file.startsWith('_')) continue
+    const raw = readFileSync(join(SRC_PAGES, file), 'utf8')
+    const { meta, body } = parseFrontmatter(raw)
+    const relPath = String(meta.path || basename(file, '.md')).replace(/^\/+|\/+$/g, '')
+    const canonical = `${ORIGIN}/${relPath}/`
+    const title = meta.title || relPath
+    const description = plain(meta.description || meta.title || relPath)
+    const html = marked.parse(body)
+    const jsonld = pageJsonld({
+      pagetype: meta.pagetype || 'legal',
+      canonical, title, description,
+      breadcrumb: meta.breadcrumb, audience: meta.audience, serviceType: meta.serviceType,
+    })
+    const rendered = applyTemplate(PAGE_TEMPLATE, {
+      title: escapeHtml(title),
+      description: escapeHtml(description),
+      canonical,
+      ogimage: meta.ogimage || DEFAULT_OG,
+      eyebrow: escapeHtml(meta.eyebrow || ''),
+      breadcrumb: escapeHtml(meta.breadcrumb || title),
+      content: html,
+      jsonld,
+    })
+    const dir = join(ROOT, relPath)
+    ensureDir(dir)
+    writeFileSync(join(dir, 'index.html'), rendered, 'utf8')
+    out.push({ loc: canonical, lastmod: new Date().toISOString().slice(0, 10),
+      changefreq: 'monthly', priority: priorityByType[meta.pagetype] || '0.4' })
+    console.log(`[pages] ${file} -> ${relPath}/index.html (${meta.pagetype || 'legal'})`)
+  }
+  return out
 }
 
 build()

@@ -209,6 +209,43 @@ if (!existsSync(CASES_DIR)) {
   else pass.push(`sitemap covers homepage + ${caseCanonicals.length} cases URLs`)
 }
 
+// --- standalone pages (content/pages → /<path>/) checks ---
+// Industry landings (/for/*) and trust pages (/about, /author/*, /privacy) generated
+// by build-cases.mjs. Each must live on phasera.jp with a correct canonical and be
+// in the sitemap so the new URLs get indexed.
+const PAGES_DIR = join(ROOT, 'content', 'pages')
+if (existsSync(PAGES_DIR)) {
+  const before = fails.length
+  const mdFiles = readdirSync(PAGES_DIR).filter((f) => f.endsWith('.md') && !f.startsWith('_') && f !== 'README.md')
+  const pageCanonicals = []
+  const locSet2 = new Set(locs)
+  for (const md of mdFiles) {
+    const raw = readFileSync(join(PAGES_DIR, md), 'utf8')
+    const pm = raw.match(/^path:\s*(.+)$/m)
+    if (!pm) { warn('content/pages', `${md}: no "path" frontmatter`); continue }
+    const relPath = pm[1].trim().replace(/^\/+|\/+$/g, '')
+    const label = `${relPath}/index.html`
+    const file = join(ROOT, relPath, 'index.html')
+    if (!existsSync(file)) { fail(label, 'not generated — run `node scripts/build-cases.mjs`'); continue }
+    const doc = readFileSync(file, 'utf8')
+    const canonical = `${ORIGIN}/${relPath}/`
+    if (!/<html[^>]+lang=["']ja["']/i.test(doc)) fail(label, '<html lang="ja"> not found')
+    const h1 = (doc.match(/<h1[\s>]/gi) || []).length
+    if (h1 !== 1) fail(label, `expected exactly 1 <h1>, found ${h1}`)
+    const c = doc.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i)
+    if (!c || c[1] !== canonical) fail(label, `canonical "${c ? c[1] : 'missing'}" !== "${canonical}"`)
+    const d = doc.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)["']/i)
+    if (!d || d[1].trim() === '') fail(label, 'meta description missing/empty')
+    if ([...doc.matchAll(/<meta\b[^>]*\bname=["']robots["'][^>]*>/gi)].some((t) => /\bnoindex\b/i.test(t[0]))) fail(label, 'robots meta must not contain noindex')
+    const blocks = [...doc.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)]
+    if (blocks.length === 0) fail(label, 'no JSON-LD block')
+    for (const b of blocks) { try { JSON.parse(b[1].trim()) } catch (e) { fail(label, `JSON-LD parse error: ${e.message}`) } }
+    if (!locSet2.has(canonical)) fail('sitemap.xml', `page missing from sitemap: ${canonical}`)
+    pageCanonicals.push(canonical)
+  }
+  if (fails.length === before) pass.push(`standalone pages (${pageCanonicals.length}: landings + trust) + sitemap coverage`)
+}
+
 // --- report ---
 const stamp = new Date().toISOString()
 console.log(`# Phasera SEO check (${stamp})`)

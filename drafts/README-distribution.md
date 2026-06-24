@@ -30,10 +30,18 @@
 
 - `note-auto-reply.md` — 士業・中小企業向け（→ /cases/auto-reply/ ・ /for/shigyo/）
 - `note-scout-dm.md` — 人材派遣・紹介向け（→ /cases/scout-dm/ ・ /for/jinzai-haken/）
+- `note-doc-draft.md` — 士業の書類下書き向け（→ /cases/doc-draft/ ・ /for/zeirishi/）
+- `note-kpi-report.md` — 経営者・CFO向け（→ /cases/kpi-report/ ・ /pricing/）
+- `note-match.md` — 人材マッチング向け（→ /cases/match/ ・ /for/jinzai-haken/）
 
-## 横展開
+> 5本とも本体ケースの**要約・別角度版**（本文は書き換え済み・コピーではない）。
+> 各記事に phasera.jp への自然リンクを2本ずつ仕込み済み。
 
-同じ要領で、残りのケースからも記事を作れます（私に頼めば下書きします）：
-- `/cases/doc-draft/`（書類下書き）→ /for/zeirishi/ ・ /for/gyoseishoshi/ へ
-- `/cases/kpi-report/`（KPIレポート）→ /pricing/ ・ 経営者向け
-- `/cases/match/`（マッチング）→ /for/jinzai-haken/ へ
+## 投稿の優先順位（おすすめ）
+
+被リンク先を分散させたいので、まずはリンク先がかぶらない組み合わせから投稿するのがおすすめ：
+
+1. `note-auto-reply.md`（→ shigyo）
+2. `note-kpi-report.md`（→ pricing）
+3. `note-doc-draft.md`（→ zeirishi）
+4. `note-match.md` / `note-scout-dm.md`（どちらも → jinzai-haken。両方出すなら数日あける）

@@ -270,6 +270,7 @@ function pageJsonld({ pagetype, canonical, title, description, breadcrumb, audie
       '@type': 'Person', '@id': FOUNDER_ID,
       name: '濱田大夢', alternateName: 'Hiromu Hamada', jobTitle: 'Founder',
       worksFor: { '@id': ORG_ID }, url: canonical,
+      sameAs: ['https://github.com/hamada-phasera'],
     })
   } else {
     graph.push({
